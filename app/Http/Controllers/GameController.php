@@ -31,7 +31,9 @@ class GameController extends Controller
 
 
     /**
-     * Store a newly created resource in storage.
+     * Create a new game.
+     *
+     * This method is used to create a new game.
      */
     public function store(StoreGameRequest $request)
     {
@@ -65,6 +67,24 @@ class GameController extends Controller
     public function update(UpdateGameRequest $request, Game $game)
     {
         //
+    }
+
+
+    public function active(int $game)
+    {
+        try {
+            $this->gameService->activeGame($game);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Game activated successfully',
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage(),
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
 

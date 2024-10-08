@@ -41,4 +41,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('games', GameController::class);
     Route::post('games/import', [GameController::class, 'import']);
+    Route::post('games/active/{game}', [GameController::class, 'active']);
 });
