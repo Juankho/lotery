@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Service;
 
 use App\Mail\ConfirmationEmail;
 use Illuminate\Support\Facades\Mail;
