@@ -9,7 +9,7 @@ class ConfirmationMailService
 {
     public function index(string $email, string $userName, string $link)
     {
-        print_r(Mail::to($email)->send(new ConfirmationEmail($userName, $link)));
+        Mail::to($email)->send(new ConfirmationEmail($userName, $link));
 
         return 'Correo enviado con éxito';
     }
