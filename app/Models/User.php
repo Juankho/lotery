@@ -62,4 +62,31 @@ class User extends Authenticatable
             set: fn(string $value) => bcrypt($value),
         );
     }
+
+    public function scopeApplyFilters($query, array $filters)
+    {
+
+        $filters = collect($filters);
+
+        if ($filters->get('search')) {
+            $query->where('name', 'like', '%' . $filters->get('search') . '%')
+                ->orWhere('email', 'like', '%' . $filters->get('search') . '%')
+                ->orWhere('phone', 'like', '%' . $filters->get('search') . '%')
+                ->orWhere('id', $filters->get('search'));
+        }
+
+        if ($filters->get('role')) {
+            $query->where('role_id', $filters->get('role'));
+        }
+
+        if ($filters->get('status')) {
+            $query->where('status', $filters->get('status'));
+        }
+
+        if ($filters->get('createdAt')) {
+            $query->whereDate('created_at', $filters->get('createdAt'));
+        }
+
+        return $query;
+    }
 }
