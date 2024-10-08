@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateLoteryRequest extends FormRequest
+class LoteryFilters extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,8 @@ class UpdateLoteryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'sometimes|required|string|max:255',
-            'description' => 'nullable|string',
-            'status' => 'required|boolean',
-            'rules' => 'nullable|string',
+            'search' => 'string',
+            'status' => 'int'
         ];
     }
 }
