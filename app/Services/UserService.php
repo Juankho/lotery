@@ -22,13 +22,19 @@ class UserService
 
     public function updateUser(User $user, array $data)
     {
-        $user->update([
+
+        $saveData  = [
             'name' => $data['name'] ?? $user->name,
             'email' => $data['email'] ?? $user->email,
-            'password' => $data['password'],
             'birth_date' => $data['birth_date'] ?? $user->birth_date,
             'phone' => $data['phone'] ?? $user->phone,
-        ]);
+        ];
+
+        if (isset($data['password'])) {
+            $saveData['password'] = $data['password'];
+        }
+
+        $user->update($saveData);
     }
 
     public function deleteUser(User $user)
