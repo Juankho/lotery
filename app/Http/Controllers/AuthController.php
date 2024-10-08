@@ -6,6 +6,7 @@ use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -24,11 +25,13 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      *
      */
-    public function register(StoreUserRequest $request) : JsonResponse
+    public function register(StoreUserRequest $request): JsonResponse
     {
         $user = User::create($request->validated());
 
         $user['token'] = $user->createToken($request->device_name ?? 'auth_api')->plainTextToken;
+
+        event(new Registered($user));
 
         return response()->json([
             'success' => true,
@@ -69,7 +72,7 @@ class AuthController extends Controller
     /**
      * Log the user out (Invalidate the token).
      *
-    */
+     */
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
@@ -91,5 +94,35 @@ class AuthController extends Controller
         $request->user()->tokens()->delete();
 
         return response()->noContent();
+    }
+
+
+    /**
+     * Verify the email address of the user.
+     *
+     * @param EmailVerificationRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function verifyEmail(EmailVerificationRequest $request): JsonResponse
+    {
+        $request->fulfill();
+
+        return response()->json(['message' => 'Email verified successfully']);
+    }
+
+
+    /**
+     * Send email verification notification.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function sendEmailVerificationNotification(Request $request): JsonResponse
+    {
+        $request->user()->sendEmailVerificationNotification();
+
+        return response()->json(['status' => 'Verification link sent!']);
     }
 }
