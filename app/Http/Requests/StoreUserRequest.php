@@ -25,7 +25,7 @@ class StoreUserRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:App\Models\User,email',
             'password' => 'required|confirmed',
-            'birth_date' => 'required|date',
+            'birthDate' => 'required|date',
             'phone' => 'required|string|max:20',
         ];
     }

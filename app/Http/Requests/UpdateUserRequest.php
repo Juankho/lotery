@@ -25,7 +25,7 @@ class UpdateUserRequest extends FormRequest
             'name' => 'string|max:255',
             'email' => 'email|unique:App\Models\User,email,' . $this->user->id,
             'password' => 'confirmed',
-            'birth_date' => 'date',
+            'birthDate' => 'date',
             'phone' => 'string|max:20',
         ];
     }

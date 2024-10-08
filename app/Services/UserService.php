@@ -17,7 +17,13 @@ class UserService
 
     public function createUser(array $data)
     {
-        return User::create($data);
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => $data['password'],
+            'birth_date' => $data['birthDate'],
+            'phone' => $data['phone'],
+        ]);
     }
 
     public function updateUser(User $user, array $data)
@@ -26,7 +32,7 @@ class UserService
         $saveData  = [
             'name' => $data['name'] ?? $user->name,
             'email' => $data['email'] ?? $user->email,
-            'birth_date' => $data['birth_date'] ?? $user->birth_date,
+            'birth_date' => $data['birthDate'] ?? $user->birth_date,
             'phone' => $data['phone'] ?? $user->phone,
         ];
 
