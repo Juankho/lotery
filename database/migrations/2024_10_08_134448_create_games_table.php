@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('lotery_id')->constrained();
             $table->date('game_date');
-            $table->boolean('status')->default(1);
+            $table->foreignId('status_id')->default(1)->constrained('game_statuses');
             $table->float('total_prize');
             $table->foreignId('winner_id')->nullable()->constrained('users');
             $table->timestamps();
