@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LoteryController;
+use App\Http\Controllers\NumbersController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,4 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('lotery', [LoteryController::class, 'store']);
     Route::patch('lotery/{lotery}', [LoteryController::class, 'update']);
     Route::post('lotery/import', [LoteryController::class, 'import']);
+
+    Route::post('number', [NumbersController::class, 'store']);
+
 });
