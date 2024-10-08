@@ -5,15 +5,28 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UserFilters;
+use App\Http\Resources\UserResource;
+use App\services\UserService;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function __construct(protected UserService $userService)
     {
-        //
+        $this->middleware('admin');
+    }
+
+    /**
+     * Display a listing of the users.
+     *
+     * This method is used to get all users.
+     */
+    public function index(UserFilters $request)
+    {
+        $users = $this->userService->getAllUsers($request->all());
+
+        return UserResource::collection($users);
     }
 
     /**

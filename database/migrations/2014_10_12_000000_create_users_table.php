@@ -20,8 +20,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->integer('notify_by')->default(1)->description('1 - email, 2 - sms, 3 - both');
-            $table->date('birth_date')->nullable();
-            $table->foreignId('role_id')->constrained();
+            $table->timestamp('birth_date')->nullable();
+            $table->foreignId('role_id')->default(2)->constrained();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -18,9 +18,16 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'token' => $this->mergeWhen($this->token, $this->token),
+            'birthDate' => $this->birth_date,
+            'status' => $this->status,
+            'phone' => $this->phone,
+            'notifyBy' => $this->notify_by,
+            'role' => new RoleResource($this->whenLoaded('role')),
+            'createdAt' => $this->created_at,
+            'updatedAt' => $this->updated_at,
+            $this->mergeWhen($this->token, [
+                'token' => $this->token,
+            ]),
         ];
     }
 }
