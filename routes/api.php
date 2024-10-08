@@ -36,4 +36,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('lotery', [LoteryController::class, 'index']);
     Route::post('lotery', [LoteryController::class, 'store']);
     Route::patch('lotery/{lotery}', [LoteryController::class, 'update']);
+    Route::post('lotery/import', [LoteryController::class, 'import']);
 });

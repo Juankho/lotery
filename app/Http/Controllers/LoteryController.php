@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ImportLoteryRequest;
 use App\Http\Requests\LoteryFilters;
 use App\Models\Lotery;
 use App\Http\Requests\StoreLoteryRequest;
 use App\Http\Requests\UpdateLoteryRequest;
 use App\Http\Resources\LoteryResource;
+use App\Imports\LoteriesImport;
 use App\Services\LoteryService;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\Response;
 
 class LoteryController extends Controller
 {
@@ -83,7 +87,22 @@ class LoteryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Lotery $lotery)
+    public function destroy(Lotery $lotery) {}
+
+
+    /**
+     * Import loteries from a file.
+     *
+     * This method is used to import users from a file.
+     * You can download the file [here](https://lotery-production.up.railway.app/assets/import-loteries.xlsx)
+     */
+    public function import(ImportLoteryRequest $request)
     {
+        Excel::import(new LoteriesImport, $request->file('file'));
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Loteries imported successfully',
+        ], Response::HTTP_OK);
     }
 }
