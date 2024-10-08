@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ImportUserRequest;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UserFilters;
 use App\Http\Resources\UserResource;
 use App\Imports\UsersImport;
@@ -34,21 +35,46 @@ class UserController extends Controller
 
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new user.
+     *
+     * This method is used to create a new user.
      */
     public function store(StoreUserRequest $request)
     {
-        //
+        $this->userService->createUser($request->validated());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User created successfully',
+        ], Response::HTTP_CREATED);
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified user.
+     *
+     * This method is used to get a specific user.
      */
     public function show(User $user)
     {
-        //
+        return new UserResource($user);
     }
 
+
+
+    /**
+     * Update the specified user.
+     *
+     * This method is used to update a specific user.
+     */
+    public function update(UpdateUserRequest $request, User $user)
+    {
+        $this->userService->updateUser($user, $request->validated());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User updated successfully',
+        ], Response::HTTP_OK);
+    }
 
 
     /**
@@ -64,6 +90,22 @@ class UserController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Users imported successfully',
+        ], Response::HTTP_OK);
+    }
+
+
+    /**
+     * Remove the specified user.
+     *
+     * This method is used to delete a specific user.
+     */
+    public function destroy(User $user)
+    {
+        $this->userService->deleteUser($user);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User deleted successfully',
         ], Response::HTTP_OK);
     }
 }
