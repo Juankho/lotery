@@ -12,7 +12,7 @@ class Game extends Model
     protected $fillable = [
         'lotery_id',
         'game_date',
-        'status',
+        'status_id',
         'total_prize',
         'winner_id',
     ];
@@ -25,5 +25,10 @@ class Game extends Model
     public function winner()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(GameStatus::class);
     }
 }

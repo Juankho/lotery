@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GameController;
 use App\Http\Controllers\LoteryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -37,4 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('lotery', [LoteryController::class, 'store']);
     Route::patch('lotery/{lotery}', [LoteryController::class, 'update']);
     Route::post('lotery/import', [LoteryController::class, 'import']);
+
+    Route::apiResource('games', GameController::class);
+    Route::post('games/import', [GameController::class, 'import']);
 });

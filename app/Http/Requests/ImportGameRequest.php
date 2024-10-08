@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreGameRequest extends FormRequest
+class ImportGameRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,7 @@ class StoreGameRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'loteryId' => 'required|exists:App\Models\Lotery,id',
-            'gameDate' => 'required|date',
-            'totalPrize' => 'required|numeric',
+            'file' => 'required|file|mimes:csv,txt',
         ];
     }
 }

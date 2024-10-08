@@ -88,7 +88,7 @@ class UserController extends Controller
      * Import users from a file.
      *
      * This method is used to import users from a file.
-     * You can download the file [here](https://lotery-production.up.railway.app/assets/import-users.xlsx)
+     * You can download the file [here](https://lotery-production.up.railway.app/assets/import-users.csv)
      */
     public function import(ImportUserRequest $request)
     {
