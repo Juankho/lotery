@@ -2,18 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoteryFilters;
 use App\Models\Lotery;
 use App\Http\Requests\StoreLoteryRequest;
 use App\Http\Requests\UpdateLoteryRequest;
+use App\Http\Resources\LoteryResource;
+use App\Services\LoteryService;
 
 class LoteryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function __construct(protected LoteryService $loteryService)
     {
-        //
+
+        $this->middleware('admin');
+    }
+
+    /**
+     * Display a listing of the loteries.
+     *
+     * This method is used to get all loteries.
+     */
+    public function index(LoteryFilters $request)
+    {
+
+        $loteries = $this->loteryService->getAllLoteries($request->all());
+
+        return LoteryResource::collection($loteries);
     }
 
     /**
@@ -29,7 +43,11 @@ class LoteryController extends Controller
      */
     public function store(StoreLoteryRequest $request)
     {
-        //
+        $validatedData = $request->validated();
+
+        $lotery = $this->loteryService->createLotery($validatedData);
+
+        return response()->json($lotery, 201);
     }
 
     /**
@@ -53,7 +71,13 @@ class LoteryController extends Controller
      */
     public function update(UpdateLoteryRequest $request, Lotery $lotery)
     {
-        //
+        // Validamos los datos actualizados
+        $validatedData = $request->validated();
+
+        // Actualizamos la lotería
+        $lotery->update($validatedData);
+
+        return response()->json($lotery);
     }
 
     /**
@@ -61,6 +85,5 @@ class LoteryController extends Controller
      */
     public function destroy(Lotery $lotery)
     {
-        //
     }
 }

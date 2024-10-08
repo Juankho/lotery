@@ -15,4 +15,26 @@ class Lotery extends Model
         'status',
         'rules',
     ];
+
+    public function scopeApplyFilters($query, array $filters)
+    {
+
+        $filters = collect($filters);
+
+        if ($filters->get('search')) {
+            $query->where('name', 'like', '%' . $filters->get('search') . '%')
+                ->orWhere('rules', 'like', '%' . $filters->get('search') . '%')
+                ->orWhere('description', 'like', '%' . $filters->get('search') . '%');
+        }
+
+
+        if ($filters->get('status')) {
+            $query->where('status', $filters->get('status'));
+        }
+        
+
+        return $query;
+    }
+
+
 }
