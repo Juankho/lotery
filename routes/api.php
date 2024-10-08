@@ -29,5 +29,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout-all', [AuthController::class, 'logoutAll']);
     Route::get('user', [AuthController::class, 'user']);
 
-    Route::apiResource('users', UserController::class)->only(['index']);
+    Route::get('users', [UserController::class, 'index']);
+    Route::post('users/import', [UserController::class, 'import']);
 });

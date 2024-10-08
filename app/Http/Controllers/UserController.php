@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ImportUserRequest;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UserFilters;
 use App\Http\Resources\UserResource;
+use App\Imports\UsersImport;
 use App\Services\UserService;
+use Illuminate\Http\Response;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -29,13 +32,6 @@ class UserController extends Controller
         return UserResource::collection($users);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -53,27 +49,21 @@ class UserController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(User $user)
-    {
-        //
-    }
+
 
     /**
-     * Update the specified resource in storage.
+     * Import users from a file.
+     *
+     * This method is used to import users from a file.
+     * You can download the file [here](https://lotery-production.up.railway.app/assets/import-users.xlsx)
      */
-    public function update(UpdateUserRequest $request, User $user)
+    public function import(ImportUserRequest $request)
     {
-        //
-    }
+        Excel::import(new UsersImport, $request->file('file'));
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(User $user)
-    {
-        //
+        return response()->json([
+            'success' => true,
+            'message' => 'Users imported successfully',
+        ], Response::HTTP_OK);
     }
 }
