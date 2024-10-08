@@ -30,7 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout-all', [AuthController::class, 'logoutAll']);
     Route::get('user', [AuthController::class, 'user']);
 
-    Route::get('users', [UserController::class, 'index']);
+    Route::apiResource('users', UserController::class);
     Route::post('users/import', [UserController::class, 'import']);
 
     Route::get('lotery', [LoteryController::class, 'index']);
