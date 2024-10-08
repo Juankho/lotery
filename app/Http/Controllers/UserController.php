@@ -68,12 +68,19 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        $this->userService->updateUser($user, $request->validated());
+        try {
+            $this->userService->updateUser($user, $request->validated());
 
-        return response()->json([
-            'success' => true,
-            'message' => 'User updated successfully',
-        ], Response::HTTP_OK);
+            return response()->json([
+                'success' => true,
+                'message' => 'User updated successfully',
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage(),
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
 

@@ -29,6 +29,14 @@ class UserService
     public function updateUser(User $user, array $data)
     {
 
+
+        $emailExists = User::where('email', $data['email'])
+            ->where('id', '!=', $user->id)->exists();
+
+        if ($emailExists) {
+            throw new \Exception('Email already exists', 400);
+        }
+
         $saveData  = [
             'name' => $data['name'] ?? $user->name,
             'email' => $data['email'] ?? $user->email,
