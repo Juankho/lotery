@@ -45,5 +45,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('notifications', [NotificationsController::class, 'store']);
 
+    Route::apiResource('games', GameController::class)->except(['destroy', 'update']);
+    Route::post('games/import', [GameController::class, 'import']);
+    Route::post('games/active/{game}', [GameController::class, 'active']);
+
     Route::post('closeGames', [GameController::class, 'closeGames']);
 });

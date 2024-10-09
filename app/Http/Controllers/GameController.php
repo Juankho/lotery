@@ -21,7 +21,9 @@ class GameController extends Controller
 
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the games.
+     *
+     * This method is used to get all games.
      */
     public function index()
     {
@@ -47,20 +49,15 @@ class GameController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified game.
+     *
+     * This method is used to get a specific game.
      */
     public function show(Game $game)
     {
         return new GameResource($game);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Game $game)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -71,6 +68,11 @@ class GameController extends Controller
     }
 
 
+    /**
+     * Active a game.
+     *
+     * This method is used to active a game.
+     */
     public function active(int $game)
     {
         try {
