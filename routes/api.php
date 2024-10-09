@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\LoteryController;
+use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\NumbersController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -39,7 +41,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('lotery/{lotery}', [LoteryController::class, 'update']);
     Route::post('lotery/import', [LoteryController::class, 'import']);
 
-    Route::apiResource('games', GameController::class);
-    Route::post('games/import', [GameController::class, 'import']);
-    Route::post('games/active/{game}', [GameController::class, 'active']);
+    Route::post('number', [NumbersController::class, 'store']);
+
+    Route::post('notifications', [NotificationsController::class, 'store']);
+
+    Route::post('closeGames', [GameController::class, 'closeGames']);
 });

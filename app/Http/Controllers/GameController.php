@@ -8,9 +8,10 @@ use App\Http\Requests\StoreGameRequest;
 use App\Http\Requests\UpdateGameRequest;
 use App\Http\Resources\GameResource;
 use App\Imports\GamesImport;
+use App\Models\Numbers;
 use App\Services\GameService;
-use Illuminate\Http\Response;
 use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\Response;
 
 class GameController extends Controller
 {
@@ -110,5 +111,25 @@ class GameController extends Controller
     public function destroy(Game $game)
     {
         //
+    }
+
+    public function closeGames()
+    {
+        $games = Game::todaysGames();
+
+        foreach ($games as $game) {
+            $numberWinner = rand(0000, 9999);
+            $winner = Numbers::getInfoByNumber($numberWinner, $game->id);
+            if (isset($winner->user_id)) {
+                $userId = $winner->user_id;
+            } else {
+                $userId = null;
+            }
+            Game::saveWinner($game->id, $userId, $numberWinner);
+        }
+        return response()->json([
+            'status' => true,
+            'message' => 'closed games'
+        ]);
     }
 }

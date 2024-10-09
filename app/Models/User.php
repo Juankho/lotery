@@ -90,4 +90,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
         return $query;
     }
+
+    public static function insertTypeNotification($userId, $notificationId)
+    {
+        return self::where('id', $userId)->update(["notify_by" => $notificationId]);
+    }
 }
