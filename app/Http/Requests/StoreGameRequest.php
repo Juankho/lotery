@@ -24,7 +24,7 @@ class StoreGameRequest extends FormRequest
         return [
             'loteryId' => 'required|exists:App\Models\Lotery,id',
             'gameDate' => 'required|date',
-            'totalPrize' => 'required|numeric',
+            'totalPrize' => 'required|numeric|max_digits:8',
         ];
     }
 }

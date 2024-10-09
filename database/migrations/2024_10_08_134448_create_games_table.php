@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('status_id')->default(1)->constrained('game_statuses');
             $table->float('total_prize');
             $table->foreignId('winner_id')->nullable()->constrained('users');
-            $table->float('winner_number')->nullable();
+            $table->unsignedBigInteger('winner_number')->nullable();
             $table->timestamps();
         });
     }
