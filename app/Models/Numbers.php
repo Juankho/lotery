@@ -44,4 +44,11 @@ class Numbers extends Model
             ]
         );
     }
+
+    public static function getInfoByNumber($number, $gameId)
+    {
+        return self::where('number', $number)
+            ->where('game_id', $gameId)
+            ->first();
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GameController;
 use App\Http\Controllers\LoteryController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\NumbersController;
@@ -44,4 +45,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('notifications', [NotificationsController::class, 'store']);
 
+    Route::post('closeGames', [GameController::class, 'closeGames']);
 });

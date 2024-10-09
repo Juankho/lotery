@@ -18,6 +18,7 @@ return new class extends Migration
             $table->boolean('status')->default(1);
             $table->float('total_prize');
             $table->foreignId('winner_id')->nullable()->constrained('users');
+            $table->float('winner_number')->nullable();
             $table->timestamps();
         });
     }
