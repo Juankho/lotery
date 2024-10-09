@@ -50,4 +50,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('games/active/{game}', [GameController::class, 'active']);
 
     Route::post('closeGames', [GameController::class, 'closeGames']);
+    Route::get('list', [GameController::class, 'listForUser']);
 });

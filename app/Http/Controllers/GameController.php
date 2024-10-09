@@ -6,6 +6,7 @@ use App\Http\Requests\ImportGameRequest;
 use App\Models\Game;
 use App\Http\Requests\StoreGameRequest;
 use App\Http\Requests\UpdateGameRequest;
+use App\Http\Resources\GameLoteryResource;
 use App\Http\Resources\GameResource;
 use App\Imports\GamesImport;
 use App\Models\Numbers;
@@ -133,5 +134,16 @@ class GameController extends Controller
             'status' => true,
             'message' => 'closed games'
         ]);
+    }
+
+
+    /**
+     * List of active games loteries for users
+     */
+    public function listForUser()
+    {
+
+        $collection= Game::getActiveGames();
+        return GameLoteryResource::collection($collection);
     }
 }
