@@ -53,4 +53,9 @@ class Game extends Model
                 'winner_number' => $numberWinner
             ]);
     }
+
+    public function status()
+    {
+        return $this->belongsTo(GameStatus::class);
+    }
 }
