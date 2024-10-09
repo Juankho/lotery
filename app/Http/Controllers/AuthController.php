@@ -31,13 +31,13 @@ class AuthController extends Controller
 
         $user['token'] = $user->createToken($request->device_name ?? 'auth_api')->plainTextToken;
 
-        // event(new Registered($user));
+        event(new Registered($user));
 
         return response()->json([
             'success' => true,
             'message' => 'User created successfully',
             'data' => new UserResource($user),
-        ], Response::HTTP_CREATED);
+        ], Response::HTTP_OK);
     }
 
     /**
