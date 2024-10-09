@@ -58,4 +58,10 @@ class Game extends Model
     {
         return $this->belongsTo(GameStatus::class);
     }
+
+    public static function getDate($id){
+        return self::where('id', $id)
+        ->first()
+        ->pluck('game_date');
+    }
 }

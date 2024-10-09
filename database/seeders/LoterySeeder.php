@@ -18,13 +18,13 @@ class LoterySeeder extends Seeder
                 'name' => 'Baloto',
                 'description' => 'El Baloto es una lotería colombiana con grandes premios acumulados.',
                 'status' => 1,
-                'rules' => 'Selecciona 5 números entre el 1 y el 43 y un superbalota entre el 1 y el 16.'
+                'rules' => 'Selecciona un número de 4 cifras entre el 0000 y el 9999.'
             ],
             [
                 'name' => 'Chance',
                 'description' => 'El Chance es una apuesta en la que seleccionas números de 2, 3 o 4 cifras.',
                 'status' => 1,
-                'rules' => 'Selecciona una combinación de 2 a 4 números entre el 00 y el 99.'
+                'rules' => 'Selecciona un número de 4 cifras entre el 0000 y el 9999.'
             ],
             [
                 'name' => 'Lotería de Bogotá',
@@ -42,7 +42,7 @@ class LoterySeeder extends Seeder
                 'name' => 'Superastro',
                 'description' => 'Superastro es un juego de lotería basado en la selección de signos zodiacales y números.',
                 'status' => 1,
-                'rules' => 'Selecciona un número de 4 cifras y un signo zodiacal.'
+                'rules' => 'Selecciona un número de 4 cifras entre el 0000 y el 9999.'
             ]
         ]);
     }

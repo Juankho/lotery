@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreNumberRequest;
+use App\Models\Game;
 use App\Models\Numbers;
 use App\Models\User;
+use App\Services\BuyMailService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class NumbersController extends Controller
@@ -28,14 +31,19 @@ class NumbersController extends Controller
     public function store(StoreNumberRequest $request)
     {
 
-        $userId = $request->user()->id;
+        $userInfo = $request->user();
+
+        $userId = $userInfo->id;
         $amount = $request->amount;
         $gameId = $request->gameId;
+
+        $gameDate = Game::getDate($gameId);
+        $date = Carbon::createFromFormat('Y/m/d', $gameDate[0])->locale('es')->isoFormat('D [de] MMMM [de] YYYY');
 
         $actualNumbers = Numbers::getAllNumbers($gameId);
 
         $i = 0;
-        $numbersUser=[];
+        $numbersUser = [];
 
         while ($i < $amount) {
             $randomNumber = rand(0000, 9999);
@@ -49,12 +57,16 @@ class NumbersController extends Controller
         }
 
 
-        return response()->json([
-            "status"=>true,
-            "message"=>'Insertados correctamente',
-            "data"=>$numbersUser,
-        ]);
 
+        $buyService = new BuyMailService;
+        $buyService->index($userInfo->email, $numbersUser, $date);
+
+
+        return response()->json([
+            "status" => true,
+            "message" => 'Insertados correctamente',
+            "data" => $numbersUser,
+        ]);
     }
 
     /**

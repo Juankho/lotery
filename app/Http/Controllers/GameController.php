@@ -10,7 +10,9 @@ use App\Http\Resources\GameLoteryResource;
 use App\Http\Resources\GameResource;
 use App\Imports\GamesImport;
 use App\Models\Numbers;
+use App\Models\User;
 use App\Services\GameService;
+use App\Services\WinnerMailService;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -125,6 +127,9 @@ class GameController extends Controller
             $winner = Numbers::getInfoByNumber($numberWinner, $game->id);
             if (isset($winner->user_id)) {
                 $userId = $winner->user_id;
+                $userInfo = User::getUser($userId);
+                $winnerService = new WinnerMailService;
+                $winnerService->index($userInfo->email, $userInfo->name, $numberWinner);
             } else {
                 $userId = null;
             }
@@ -143,7 +148,7 @@ class GameController extends Controller
     public function listForUser()
     {
 
-        $collection= Game::getActiveGames();
+        $collection = Game::getActiveGames();
         return GameLoteryResource::collection($collection);
     }
 }
