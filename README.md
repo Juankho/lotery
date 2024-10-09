@@ -37,12 +37,6 @@ Then start your server:
 php artisan serve
 ```
 
-### Generarate documentation
-
-```sh
-php artisan openapi:generate
-```
-
 Your project is already underway!
 
 ## Licencia
