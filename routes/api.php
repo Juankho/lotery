@@ -40,10 +40,4 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('lotery', [LoteryController::class, 'store']);
     Route::patch('lotery/{lotery}', [LoteryController::class, 'update']);
     Route::post('lotery/import', [LoteryController::class, 'import']);
-
-    Route::post('number', [NumbersController::class, 'store']);
-
-    Route::post('notifications', [NotificationsController::class, 'store']);
-
-    Route::post('closeGames', [GameController::class, 'closeGames']);
 });

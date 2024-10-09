@@ -57,6 +57,8 @@ class AuthController extends Controller
 
         $user['token'] = $user->createToken($request->device_name ?? 'auth_api')->plainTextToken;
 
+        $user->load('role');
+
         return new UserResource($user);
     }
 
