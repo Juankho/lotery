@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
+Route::get('closeGames', [GameController::class, 'closeGames']);
 
 Route::post('/email/verification-notification', [AuthController::class, 'sendEmailVerificationNotification'])
     ->middleware(['auth:sanctum', 'throttle:6,1']);
@@ -49,6 +50,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('games/import', [GameController::class, 'import']);
     Route::post('games/active/{game}', [GameController::class, 'active']);
 
-    Route::post('closeGames', [GameController::class, 'closeGames']);
     Route::get('list', [GameController::class, 'listForUser']);
 });
