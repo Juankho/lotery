@@ -6,7 +6,12 @@ use App\Http\Requests\ImportGameRequest;
 use App\Models\Game;
 use App\Http\Requests\StoreGameRequest;
 use App\Http\Requests\UpdateGameRequest;
+use App\Http\Resources\GameResource;
+use App\Imports\GamesImport;
 use App\Models\Numbers;
+use App\Services\GameService;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\Response;
 
 class GameController extends Controller
 {
