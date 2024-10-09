@@ -6,6 +6,7 @@ use App\Http\Requests\ImportGameRequest;
 use App\Models\Game;
 use App\Http\Requests\StoreGameRequest;
 use App\Http\Requests\UpdateGameRequest;
+use App\Models\Numbers;
 
 class GameController extends Controller
 {
